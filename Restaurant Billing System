@@ -1,0 +1,47 @@
+print("🍔 Welcome to Nahin's Restaurant 🍕\n")
+
+# Menu with item names and prices
+menu = {
+    1: {"name": "Burger", "price": 5.0},
+    2: {"name": "Pizza", "price": 8.0},
+    3: {"name": "Fries", "price": 3.0},
+    4: {"name": "Coke", "price": 1.5},
+    5: {"name": "Ice Cream", "price": 2.0}
+}
+
+# Show menu
+print("Today's Menu:")
+for number, item in menu.items():
+    print(f"{number}. {item['name']} - ${item['price']:.2f}")
+
+# Customer order
+order = {}
+while True:
+    choice = input("\nEnter the item number you want to order (or '0' to finish): ")
+    if choice == '0':
+        break
+    if not choice.isdigit() or int(choice) not in menu:
+        print("Invalid selection. Please choose a number from the menu.")
+        continue
+    choice = int(choice)
+    quantity = int(input(f"How many {menu[choice]['name']}s would you like? "))
+    if choice in order:
+        order[choice] += quantity
+    else:
+        order[choice] = quantity
+
+# Calculate total
+subtotal = sum(menu[item]['price'] * qty for item, qty in order.items())
+tax = subtotal * 0.05  # 5% tax
+total = subtotal + tax
+
+# Print final bill
+print("\n🧾 ----- BILL -----")
+for item, qty in order.items():
+    name = menu[item]['name']
+    price = menu[item]['price'] * qty
+    print(f"{name} x{qty}: ${price:.2f}")
+print(f"Subtotal: ${subtotal:.2f}")
+print(f"Tax (5%): ${tax:.2f}")
+print(f"Total: ${total:.2f}")
+print("------------------\nThank you for visiting! 🍽️c")
